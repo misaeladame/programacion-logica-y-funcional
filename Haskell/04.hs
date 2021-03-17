@@ -33,3 +33,40 @@ extraeDos (x : []) = "Primer elemento: " ++ show x
 extraeDos (x : y : []) = "Tiene dos elementos: " ++ show x ++ "," ++show y
 --extraeDos (x:y:_) = "Primeros dos: " ++show x++","++ show y
 
+--Funcion de guardas
+--Se utiliza RealFloat (Float y Double) por facilidad
+--Subclase de Fractional
+--https://www.haskell.org/tutorial/numbers.html
+estatura :: RealFloat a => a -> String
+estatura m
+    | m <= 1.50 = "Estatura muy baja"
+    | m <= 1.65 = "Estatura baja"
+    | m <= 1.75 = "Estarura alta"
+    | otherwise = "Estatura muy alta"
+
+--Funcion max
+mayor :: (Ord a) => a -> a -> a
+mayor x y 
+    | x > y = x
+    | otherwise = y 
+
+--Funcion comparacion
+compa :: (Ord a) => a -> a -> Ordering 
+x `compa` y
+    | x > y     = GT 
+    | x == y    = EQ 
+    | otherwise = LT
+
+--Recursion Guardas Factorial
+facto :: Integer -> Integer 
+facto x
+    | x <= 0 = 1
+    | otherwise = x * facto (x - 1)
+
+--Recursion GuardasFibonacci
+fibo :: Integer -> Integer 
+fibo x
+    | x <= 0 = 0
+    | x == 1 = 1
+    | x >= 2 = fibo ( x - 1 ) + fibo ( x - 2)
+
