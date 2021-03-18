@@ -70,3 +70,33 @@ fibo x
     | x == 1 = 1
     | x >= 2 = fibo ( x - 1 ) + fibo ( x - 2)
 
+--where: variables solo visibles en esa funcion
+--Permite no repetir codigo
+temp :: (RealFloat a) => a -> a-> String
+temp m v 
+    | (m + v) / 2 <= 10.0 = "Frio"
+    | (m + v) / 2 <= 20.0 = "Templado"
+    | (m + v) / 2 <= 22.0 = "Caliente"
+    | otherwise = "Muy caliente"
+
+--Reduciendo con where
+temp1 :: (RealFloat a) => a -> a -> String 
+temp1 m v 
+    | t <= 10.0 = "Frio"
+    | t <= 20.0 = "Templado"
+    | t <= 22.0 = "Caliente"
+    | otherwise = "Muy Caliente"
+    where t = (m + v) / 2
+
+--Sentencia where y let
+potencia :: Int -> Int 
+potencia x = x * x where x = 2
+
+pottencia :: Int -> Int 
+pottencia x = let x = 2 in x * x
+
+formula = do 
+    let a = 1
+        b = 2
+        c = 1
+        in (-1)*b+sqrt((b*b)-(4*a*c))/(2*a)
