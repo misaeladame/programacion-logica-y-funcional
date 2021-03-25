@@ -100,3 +100,21 @@ formula = do
         b = 2
         c = 1
         in (-1)*b+sqrt((b*b)-(4*a*c))/(2*a)
+
+--Funciones de orden superior
+
+--Funciones como parametros y devuelve funciones
+f_mas :: (Int, Int) -> Int 
+f_mas (x, y) = x + y
+
+f_mas2 :: Int -> Int -> Int 
+f_mas2 x y = x + y
+
+--f_mcurry :: Int -> Int -> Int
+--f_mcurry x y = x + y
+
+--f_mcurry :: Integer -> Integer -> Integer
+f_mcurry = \x y -> x + y 
+
+f_curry = \x -> \y -> x + y
+
