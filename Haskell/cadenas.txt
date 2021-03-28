@@ -1,0 +1,4 @@
+hola haskell
+esta es una prueba de
+lectura de un archivo
+suerte
