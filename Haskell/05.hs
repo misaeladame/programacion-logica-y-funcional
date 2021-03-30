@@ -35,3 +35,16 @@ distancia (Punto x1 y1) (Punto x2 y2) = sqrt (dx^2 + dy^2)
 
 distancia_origen :: Punto -> Double
 distancia_origen = distancia (Punto 0 0)
+
+--Arboles binarios
+data Busq = Vacio | Nodo a (Busq a) (Busq a) deriving (Show, Read, Eq)
+busqIns :: Ord a => Busq a -> a -> Busq a 
+busqIns Vacio x = Nodo x Vacio Vacio
+busqIns (Nodo valor izq der) x = if x < valor then
+                                    Nodo valor (busqIns izq x) der 
+                                  else 
+                                    Nodo valor izq (busqIns der x)
+
+                                    
+
+                                  
