@@ -5,7 +5,7 @@
 
 -- Relacion 20
 
--- Método de Gauss para triangulziar matrices
+-- Método de Gauss para triangular matrices
 
 -- ---------------------------------------------------------------------
 -- Introducción	--
@@ -24,7 +24,7 @@
 -- ---------------------------------------------------------------------
 
 import Data.Array
-    ( (!), array, assocs, bounds, elems, listArray, Array ) 
+   
 import Data.Ratio
 
 -- ---------------------------------------------------------------------
@@ -55,8 +55,8 @@ type Matriz a = Array (Int,Int) a
 
 listaMatriz :: Num a => [[a]] -> Matriz a
 listaMatriz xss = listArray ((1,1),(m,n)) (concat xss)
-  where m = length xss
-        n = length (head xss)
+    where m = length xss
+          n = length (head xss)
 
 -- ---------------------------------------------------------------------
 -- Ejercicio 2. Definir la función
@@ -138,7 +138,7 @@ dimension p = (numFilas p, numColumnas p)
 
 diagonalPral :: Num a => Matriz a -> Vector a 
 diagonalPral p = array (1,n) [(i,p!(i,i)) | i <- [1..n]]
-  where n = min (numFilas p) (numColumnas p)
+    where n = min (numFilas p) (numColumnas p)
 
 
 -- ---------------------------------------------------------------------
@@ -161,12 +161,12 @@ diagonalPral p = array (1,n) [(i,p!(i,i)) | i <- [1..n]]
 
 intercambiaFilas :: Num a => Int -> Int -> Matriz a -> Matriz a
 intercambiaFilas k l p =
-  array ((1,1), (m,n))
-        [((i,j), p! f i j) | i <- [1..m], j <- [1..n]]
-  where (m,n) = dimension p
-        f i j | i == k	= (l,j)
-              | i == l	= (k,j)
-              | otherwise = (i,j)
+    array ((1,1), (m,n))
+          [((i,j), p! f i j) | i <- [1..m], j <- [1..n]]
+    where (m,n) = dimension p
+          f i j | i == k    = (l,j)
+                | i == l    = (k,j)
+                | otherwise = (i,j)
 
 
 -- ---------------------------------------------------------------------
@@ -181,12 +181,12 @@ intercambiaFilas k l p =
 
 intercambiaColumnas :: Num a => Int -> Int -> Matriz a -> Matriz a 
 intercambiaColumnas k l p =
-  array ((1,1), (m,n))
-        [((i,j), p ! f i j) | i <- [1..m], j <- [1..n]]
-  where (m,n) = dimension p
-        f i j | j == k	= (i,l)
-              | j == l	= (i,k)
-              | otherwise = (i,j)
+    array ((1,1), (m,n))
+          [((i,j), p ! f i j) | i <- [1..m], j <- [1..n]]
+    where (m,n) = dimension p
+          f i j | j == k    = (i,l)
+                | j == l    = (i,k)
+                | otherwise = (i,j)
 
 
 -- ---------------------------------------------------------------------
@@ -201,11 +201,11 @@ intercambiaColumnas k l p =
 
 multFilaPor :: Num a => Int -> a -> Matriz a -> Matriz a 
 multFilaPor k x p =
-  array ((1,1), (m,n))
-        [((i,j), f i j) | i <- [1..m], j <- [1..n]]
-  where (m,n) = dimension p
-        f i j | i == k	= x*(p!(i,j))
-              | otherwise = p!(i,j)
+    array ((1,1), (m,n))
+          [((i,j), f i j) | i <- [1..m], j <- [1..n]]
+    where (m,n) = dimension p
+          f i j | i == k    = x*(p!(i,j))
+                | otherwise = p!(i,j)
 
 
 -- ---------------------------------------------------------------------
@@ -220,11 +220,11 @@ multFilaPor k x p =
 
 sumaFilaFila :: Num a => Int -> Int -> Matriz a -> Matriz a 
 sumaFilaFila k l p =
-  array ((1,1), (m,n))
-        [((i,j), f i j) | i <- [1..m], j <- [1..n]]
-  where (m,n) = dimension p
-        f i j | i == k	= p!(i,j) + p!(l,j)
-              | otherwise = p!(i,j)
+    array ((1,1), (m,n))
+          [((i,j), f i j) | i <- [1..m], j <- [1..n]]
+    where (m,n) = dimension p
+          f i j | i == k    = p!(i,j) + p!(l,j)
+                | otherwise = p!(i,j)
 
 
 -- ---------------------------------------------------------------------
@@ -239,11 +239,11 @@ sumaFilaFila k l p =
 
 sumaFilaPor :: Num a => Int -> Int -> a -> Matriz a -> Matriz a 
 sumaFilaPor k l x p =
-  array ((1,1), (m,n))
-        [((i,j), f i j) | i <- [1..m], j <- [1..n]]
-  where (m,n) = dimension p
-        f i j | i == k	= p!(i,j) + x*p!(l,j)
-              | otherwise = p!(i,j)
+    array ((1,1), (m,n))
+          [((i,j), f i j) | i <- [1..m], j <- [1..n]]
+    where (m,n) = dimension p
+          f i j | i == k    = p!(i,j) + x*p!(l,j)
+                | otherwise = p!(i,j)
 
 
 -- ---------------------------------------------------------------------
@@ -267,9 +267,9 @@ sumaFilaPor k l x p =
 
 buscaIndiceDesde :: (Num a, Eq a) => Matriz a -> Int -> Int -> Maybe Int
 buscaIndiceDesde p j i
-  | null xs	= Nothing
-  | otherwise = Just (head xs)
-  where xs = [k | ((k,j'),y) <- assocs p, j == j', y /= 0, k >= i]
+    | null xs   = Nothing
+    | otherwise = Just (head xs)
+    where xs = [k | ((k,j'),y) <- assocs p, j == j', y /= 0, k >= i]
 
 
 -- ---------------------------------------------------------------------
@@ -288,9 +288,9 @@ buscaIndiceDesde p j i
 
 buscaPivoteDesde :: (Num a, Eq a) => Matriz a -> Int -> Int -> Maybe a 
 buscaPivoteDesde p j i
-  | null xs	= Nothing
-  | otherwise = Just (head xs)
-  where xs = [y | ((k,j'),y) <- assocs p, j == j', y /= 0, k >= i]
+    | null xs = Nothing
+    | otherwise = Just (head xs)
+    where xs = [y | ((k,j'),y) <- assocs p, j == j', y /= 0, k >= i]
 
 
 -- ---------------------------------------------------------------------
@@ -310,7 +310,7 @@ buscaPivoteDesde p j i
 
 anuladaColumnaDesde :: (Num a, Eq a) => Matriz a -> Int -> Int -> Bool
 anuladaColumnaDesde p j i =
-  buscaIndiceDesde p j (i+1) == Nothing
+    buscaIndiceDesde p j (i+1) == Nothing
 
 
 -- ---------------------------------------------------------------------
@@ -328,9 +328,9 @@ anuladaColumnaDesde p j i =
 anulaEltoColumnaDesde :: (Fractional a, Eq a) =>
                          Matriz a -> Int -> Int -> Matriz a 
 anulaEltoColumnaDesde p j i =
-  sumaFilaPor l i (-(p!(l,j)/a)) p
-  where Just l = buscaIndiceDesde p j (i+1)
-        a      = p!(i,j)
+    sumaFilaPor l i (-(p!(l,j)/a)) p
+    where Just l = buscaIndiceDesde p j (i+1)
+          a = p!(i,j)
 
 
 -- ---------------------------------------------------------------------
@@ -352,8 +352,8 @@ anulaEltoColumnaDesde p j i =
 anulaColumnaDesde :: (Fractional a, Eq a) =>
                      Matriz a -> Int -> Int -> Matriz a 
 anulaColumnaDesde p j i
-  | anuladaColumnaDesde p j i = p
-  | otherwise = anulaColumnaDesde (anulaEltoColumnaDesde p j i) j i
+    | anuladaColumnaDesde p j i = p
+    | otherwise = anulaColumnaDesde (anulaEltoColumnaDesde p j i) j i
 
 
 -- ---------------------------------------------------------------------
@@ -373,7 +373,7 @@ anulaColumnaDesde p j i
 
 elementosNoNulosColDesde :: (Num a, Eq a) => Matriz a -> Int -> Int -> [a]
 elementosNoNulosColDesde p j i =
-  [x | ((k,j'),x) <- assocs p, x /= 0, j' == j, k >= i]
+    [x | ((k,j'),x) <- assocs p, x /= 0, j' == j, k >= i]
 
 
 -- ---------------------------------------------------------------------
@@ -394,8 +394,8 @@ elementosNoNulosColDesde p j i =
 
 existeColNoNulaDesde :: (Num a, Eq a) => Matriz a -> Int -> Int -> Bool
 existeColNoNulaDesde p j i =
-  or [not (null (elementosNoNulosColDesde p l i)) | l <- [j..n]]
-  where n = numColumnas p
+    or [not (null (elementosNoNulosColDesde p l i)) | l <- [j..n]]
+    where n = numColumnas p
 
 
 -- ---------------------------------------------------------------------
@@ -419,11 +419,11 @@ existeColNoNulaDesde p j i =
 menorIndiceColNoNulaDesde :: (Num a, Eq a) =>
                              Matriz a -> Int -> Int -> Maybe Int
 menorIndiceColNoNulaDesde p j i
-  | null js	= Nothing
-  | otherwise = Just (head js)
-  where n = numColumnas p
-        js = [j' | j' <- [j..n],
-                   not (null (elementosNoNulosColDesde p j' i))]
+    | null js   = Nothing
+    | otherwise = Just (head js)
+    where n = numColumnas p
+          js = [j' | j' <- [j..n],
+                     not (null (elementosNoNulosColDesde p j' i))]
 
 
 -- ---------------------------------------------------------------------
@@ -455,14 +455,14 @@ menorIndiceColNoNulaDesde p j i
 
 gaussAux :: (Fractional a, Eq a) => Matriz a -> Int -> Int -> Matriz a 
 gaussAux p i j
-  | dimension p == (i,j)	= p	--  1
-  | not (existeColNoNulaDesde p j i) = p	--  2
-  | otherwise	= gaussAux p' (i+1) (j+1) --  3
-  where Just j' = menorIndiceColNoNulaDesde p j i	-- 3.1
-        p1	    = intercambiaColumnas j j' p	-- 3.2
-        Just i' = buscaIndiceDesde p1 j i	-- 3.3
-        p2	    = intercambiaFilas i i' p1	-- 3.4
-        p'	    = anulaColumnaDesde p2 j i	-- 3.5
+    | dimension p == (i,j) = p --  1
+    | not (existeColNoNulaDesde p j i) = p --  2
+    | otherwise = gaussAux p' (i+1) (j+1) --  3
+    where Just j'  = menorIndiceColNoNulaDesde p j i   -- 3.1
+          p1       = intercambiaColumnas j j' p -- 3.2
+          Just i'  = buscaIndiceDesde p1 j i    -- 3.3
+          p2       = intercambiaFilas i i' p1   -- 3.4
+          p'       = anulaColumnaDesde p2 j i   -- 3.5
 
 
 -- ---------------------------------------------------------------------
@@ -528,15 +528,15 @@ gauss p = gaussAux p 1 1
 gaussCAux :: (Fractional a, Eq a) =>
              Matriz a -> Int -> Int -> Int -> (Int,Matriz a) 
 gaussCAux p i j c
-  | dimension p == (i,j)	= (c,p)	--  1
-  | not (existeColNoNulaDesde p j i) = (c,p)	--  2
-  | otherwise	= gaussCAux p' (i+1) (j+1) c' -- 3
-  where Just j' = menorIndiceColNoNulaDesde p j i	-- 3.1
-        p1	= intercambiaColumnas j j' p	-- 3.2
-        Just i' = buscaIndiceDesde p1 j i	-- 3.3
-        p2	= intercambiaFilas i i' p1	-- 3.4
-        p'	= anulaColumnaDesde p2 j i	-- 3.5
-        c'	= c + signum (abs (j-j')) + signum (abs (i-i'))
+    | dimension p == (i,j) = (c,p)   --  1
+    | not (existeColNoNulaDesde p j i) = (c,p)  --  2
+    | otherwise = gaussCAux p' (i+1) (j+1) c' -- 3
+    where Just j' = menorIndiceColNoNulaDesde p j i -- 3.1
+          p1      = intercambiaColumnas j j' p  -- 3.2
+          Just i' = buscaIndiceDesde p1 j i -- 3.3
+          p2      = intercambiaFilas i i' p1  -- 3.4
+          p'      = anulaColumnaDesde p2 j i  -- 3.5
+          c'      = c + signum (abs (j-j')) + signum (abs (i-i'))
 
 
 -- ---------------------------------------------------------------------
@@ -567,7 +567,7 @@ gaussC p = gaussCAux p 1 1 0
 
 determinante :: (Fractional a, Eq a) => Matriz a -> a 
 determinante p = (-1)^c * product (elems (diagonalPral p'))
-  where (c,p') = gaussC p
+    where (c,p') = gaussC p
 
 
 

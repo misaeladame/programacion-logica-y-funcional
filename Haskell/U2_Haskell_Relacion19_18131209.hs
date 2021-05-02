@@ -22,6 +22,7 @@
 
 import Data.Array
 
+
 -- ---------------------------------------------------------------------
 -- Tipos de los vectores y de las matrices							  --
 -- ---------------------------------------------------------------------
@@ -169,14 +170,14 @@ vectorLista = elems
 -- 1ª definición
 sumaMatrices :: Num a => Matriz a -> Matriz a -> Matriz a 
 sumaMatrices p q =
-  array ((1,1),(m,n)) [((i,j),p!(i,j)+q!(i,j))
-                      | i <- [1..m], j <- [1..n]]
-  where (m,n) = dimension p
+    array ((1,1),(m,n)) [((i,j),p!(i,j)+q!(i,j))
+                        | i <- [1..m], j <- [1..n]]
+    where (m,n) = dimension p
 
 -- 2ª definición
 sumaMatrices2 :: Num a => Matriz a -> Matriz a -> Matriz a
 sumaMatrices2 p q =
-  listArray (bounds p) (zipWith (+) (elems p) (elems q))
+    listArray (bounds p) (zipWith (+) (elems p) (elems q))
 
 
 -- ---------------------------------------------------------------------
@@ -194,7 +195,7 @@ sumaMatrices2 p q =
 
 filaMat :: Num a => Int -> Matriz a -> Vector a
 filaMat i p = array (1,n) [(j,p!(i,j)) | j <- [1..n]]
-  where n = numColumnas p
+    where n = numColumnas p
 
 
 -- ---------------------------------------------------------------------
@@ -211,7 +212,7 @@ filaMat i p = array (1,n) [(j,p!(i,j)) | j <- [1..n]]
  
 columnaMat :: Num a => Int -> Matriz a -> Vector a 
 columnaMat j p = array (1,m) [(i,p!(i,j)) | i <- [1..m]]
-  where m = numFilas p
+    where m = numFilas p
 
 
 -- ---------------------------------------------------------------------
@@ -232,12 +233,12 @@ columnaMat j p = array (1,m) [(i,p!(i,j)) | i <- [1..m]]
 -- 1ª solución
 prodEscalar :: Num a => Vector a -> Vector a -> a 
 prodEscalar v1 v2 =
-  sum [i*j | (i,j) <- zip (elems v1) (elems v2)]
+    sum [i*j | (i,j) <- zip (elems v1) (elems v2)]
 
 -- 2ª solución
 prodEscalar2 :: Num a => Vector a -> Vector a -> a 
 prodEscalar2 v1 v2 =
-  sum (zipWith (*) (elems v1) (elems v2))
+    sum (zipWith (*) (elems v1) (elems v2))
 
 
 -- ---------------------------------------------------------------------
@@ -260,11 +261,11 @@ prodEscalar2 v1 v2 =
 
 prodMatrices :: Num a => Matriz a -> Matriz a -> Matriz a
 prodMatrices p q =
-  array ((1,1),(m,n))
-        [((i,j), prodEscalar (filaMat i p) (columnaMat j q))
-        | i <- [1..m], j <- [1..n]]
-  where m = numFilas p
-        n = numColumnas q
+    array ((1,1),(m,n))
+            [((i,j), prodEscalar (filaMat i p) (columnaMat j q))
+            | i <- [1..m], j <- [1..n]]
+    where m = numFilas p
+          n = numColumnas q
 
 
 -- ---------------------------------------------------------------------
@@ -284,10 +285,10 @@ prodMatrices p q =
 
 identidad :: Num a => Int -> Matriz a 
 identidad n =
-  array ((1,1),(n,n))
-        [((i,j),f i j) | i <- [1..n], j <- [1..n]]
-  where f i j | i == j = 1
-              | otherwise = 0
+    array ((1,1),(n,n))
+            [((i,j),f i j) | i <- [1..n], j <- [1..n]]
+    where f i j | i == j = 1
+                | otherwise = 0
 
 
 -- ---------------------------------------------------------------------
@@ -314,7 +315,7 @@ q1 = listArray ((1,1),(2,2)) [1,1,1,0]
 
 potencia :: Num a => Matriz a -> Int -> Matriz a
 potencia p 0 = identidad n
-  where (_,(n,_)) = bounds p
+    where (_,(n,_)) = bounds p
 potencia p n = prodMatrices p (potencia p (n-1))
 
 
@@ -338,9 +339,9 @@ potencia p n = prodMatrices p (potencia p (n-1))
 
 traspuesta :: Num a => Matriz a -> Matriz a 
 traspuesta p =
- array ((1,1),(n,m))
- [((i,j), p!(j,i)) | i <- [1..n], j <- [1..m]]
- where (m,n) = dimension p
+    array ((1,1),(n,m))
+    [((i,j), p!(j,i)) | i <- [1..n], j <- [1..m]]
+    where (m,n) = dimension p
 
 
 -- ---------------------------------------------------------------------
@@ -404,7 +405,7 @@ esSimetrica x = x == traspuesta x
 
 diagonalPral :: Num a => Matriz a -> Vector a
 diagonalPral p = array (1,n) [(i,p!(i,i)) | i <- [1..n]]
-  where n = min (numFilas p) (numColumnas p)
+    where n = min (numFilas p) (numColumnas p)
 
 
 -- ---------------------------------------------------------------------
@@ -426,7 +427,7 @@ diagonalPral p = array (1,n) [(i,p!(i,i)) | i <- [1..n]]
 
 diagonalSec :: Num a => Matriz a -> Vector a
 diagonalSec p = array (1,n) [(i,p!(i,n+1-i)) | i <- [1..n]]
-  where n = min (numFilas p) (numColumnas p)
+    where n = min (numFilas p) (numColumnas p)
 
 -- ---------------------------------------------------------------------
 -- Submatrices	--
@@ -447,13 +448,13 @@ diagonalSec p = array (1,n) [(i,p!(i,n+1-i)) | i <- [1..n]]
 
 submatriz :: Num a => Int -> Int -> Matriz a -> Matriz a 
 submatriz i j p =
-  array ((1,1), (m-1,n -1))
-        [((k,l), p ! f k l) | k <- [1..m-1], l <- [1.. n-1]]
-  where (m,n) = dimension p
-        f k l | k < i && l < j  = (k,l)
-              | k >= i && l < j = (k+1,l)
-              | k < i && l >= j = (k,l+1)
-              | otherwise	    = (k+1,l+1)
+    array ((1,1), (m-1,n -1))
+          [((k,l), p ! f k l) | k <- [1..m-1], l <- [1.. n-1]]
+    where (m,n) = dimension p
+          f k l | k < i && l < j  = (k,l)
+                | k >= i && l < j = (k+1,l)
+                | k < i && l >= j = (k,l+1)
+                | otherwise       = (k+1,l+1)
 
 
 -- ---------------------------------------------------------------------
@@ -476,8 +477,8 @@ submatriz i j p =
 
 determinante :: Matriz Double -> Double
 determinante p
-  | (m,n) == (1,1) = p!(1,1)
-  | otherwise =
-      sum [((-1)^(i+1))*(p!(i,1))*determinante (submatriz i 1 p)
-          | i <- [1..m]]
-  where (_,(m,n)) = bounds p
+    | (m,n) == (1,1) = p!(1,1)
+    | otherwise =
+        sum [((-1)^(i+1))*(p!(i,1))*determinante (submatriz i 1 p)
+            | i <- [1..m]]
+    where (_,(m,n)) = bounds p
