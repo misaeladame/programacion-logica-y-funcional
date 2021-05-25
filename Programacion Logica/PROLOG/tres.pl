@@ -10,7 +10,7 @@
 obs(belen, carlos).
 obs(fer, maria).
 obs(fer, lola).
-%obs(_,maria).
+obs(_,maria).
 feliz(pedro).  %"Si pasa la materia" - Aaron
 %%% REGLAS
 feliz(X) :- obs(fer, X).
