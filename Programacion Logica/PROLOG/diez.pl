@@ -15,3 +15,9 @@ meses([ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic]).
 es_lista([]).
 es_lista([_|Cola]) :-
     es_lista(Cola).
+
+
+escribeCadena([]).
+escribeCadena([Cabeza]|[Resto]) :-
+    put(Cabeza),
+    escribeCadena(Resto).
