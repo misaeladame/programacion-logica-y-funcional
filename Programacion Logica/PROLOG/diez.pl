@@ -33,8 +33,25 @@ busca(X, [X|_]).  % en la cabeza
 busca(X, [_|Cola]) :-
     busca(X, Cola).
 
-%% Concatenar
+%% Concatenar   reformar esta regla --tarea
 concatenar([], Lista, Lista).
 concatenar([X|L1], L2, [X|L3]) :-
     concatenar(L1, L2, L3).
 
+%% Agregar al inicio
+inicio(X, L, [X|L]).
+
+%% Agregar al final
+final(X, L, F) :-
+    concatenar(L, [X], F).
+
+%% 
+%% Boorado de la primera ocurrencia
+%% Borrar : al inicio de la lista (primer elemento)
+borrar(X, [X|Cola], Cola).
+%% Borrar : cuando no es la cabeza
+borrar(X, [Y|Cola1], [Y|Cola2]) :-
+    borrar(X, Cola1, Cola2).
+
+%%
+%% Borrado de todas las ocurrencias
