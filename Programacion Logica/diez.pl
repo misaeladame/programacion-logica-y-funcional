@@ -55,3 +55,24 @@ borrar(X, [Y|Cola1], [Y|Cola2]) :-
 
 %%
 %% Borrado de todas las ocurrencias
+%% Borrar : un elemento en una lista vacia.
+borrar(_, [], []).
+%% Borrar: lista solo contiene el elemento a borrar
+borrar(X, [X], []).
+%% Borrar : borrar elemento de la cabeza
+borrar(X, [X | Cola1], Cola2) :-
+    borrar(X, Cola1, Cola2).
+%% Borrar : elemento no es la cabeza
+borrar(X, [Y | Cola1], [Y | Cola2]) :-
+    borrar(X, Cola1, Cola2).
+
+%% Lista: subconjunto
+sublista(Sub, Lista) :-
+    concatenar(_, L2, Lista),
+    concatenar(Sub, _, L2).
+
+%% Invertir una ista
+invertir([], []).
+invertir([Cabeza|Cola], X) :-
+    invertir(Cola, Cola1),
+    final(Cabeza, Cola1, X).
